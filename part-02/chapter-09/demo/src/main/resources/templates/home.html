@@ -1,0 +1,37 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,
+                   user-scalable=no,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Home</h1>
+<div>
+    <p th:text="${username}"></p>
+    <div id="countdown">60초 뒤에 로그아웃 됩니다.</div>
+    <a href="/logout">logout</a>
+</div>
+</body>
+
+<script>
+    let sessionTime = 61
+    const countdown = document.getElementById('countdown')
+    setInterval(function () { // 1
+        sessionTime--;
+        countdown.innerHTML = sessionTime + '초 뒤에 로그아웃 됩니다.'
+        if (sessionTime === 0) {
+            moveMainPage()  // 2
+        }
+    }, 1000)
+
+    function moveMainPage() {
+        window.location.href = '/'
+    }
+</script>
+</html>

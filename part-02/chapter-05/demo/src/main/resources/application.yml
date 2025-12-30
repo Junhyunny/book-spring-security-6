@@ -1,0 +1,12 @@
+spring:
+  thymeleaf:
+    prefix: classpath:templates/ # 템플릿 파일들이 존재하는 경로
+    suffix: .html # 템플릿 파일 확장자
+  datasource:
+    url: jdbc:h2:mem:test # 데이터베이스 접속 경로
+    driver-class-name: org.h2.Driver # 데이터베이스 드라이버 클래스
+    username: sa # 데이터베이스 사용자 아이디
+    password: # 데이터베이스 사용자 비밀번호
+  h2:
+    console:
+      enabled: true # 브라우저 콘솔 사용 여부

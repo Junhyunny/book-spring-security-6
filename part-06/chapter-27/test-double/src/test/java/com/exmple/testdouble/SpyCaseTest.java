@@ -1,0 +1,55 @@
+package com.exmple.testdouble;
+
+import com.exmple.testdouble.domain.Order;
+import com.exmple.testdouble.domain.User;
+import com.exmple.testdouble.repository.OrderRepository;
+import com.exmple.testdouble.service.OrderService;
+import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class SpyOrderRepository implements OrderRepository {
+
+    int placeOrderCalledTimes;
+    Order argumentPlaceOrder;
+
+    @Override
+    public UUID placeOrder(Order order) {
+        placeOrderCalledTimes++;
+        argumentPlaceOrder = order;
+        return UUID.randomUUID();
+    }
+
+    @Override
+    public Order findById(UUID id) {
+        return null;
+    }
+}
+
+public class SpyCaseTest {
+
+    @Test
+    void givenAdmin_whenPlaceOrder_thenCallPlaceOrderOfRepository() {
+        SpyOrderRepository spy = new SpyOrderRepository();
+        OrderService sut = new OrderService(spy);
+
+
+        sut.placeOrder(
+                new User("junhyunny", "ROLE_ADMIN"),
+                new Order(1000)
+        );
+
+
+        assertEquals(
+                1,
+                spy.placeOrderCalledTimes
+        );
+        assertEquals(
+                new Order(1000),
+                spy.argumentPlaceOrder
+        );
+    }
+}
+

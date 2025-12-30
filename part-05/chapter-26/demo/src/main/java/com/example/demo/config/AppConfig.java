@@ -1,0 +1,76 @@
+package com.example.demo.config;
+
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.client.OAuth2AuthorizationContext;
+import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.util.StringUtils;
+
+import java.time.Duration;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        var inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+        inMemoryUserDetailsManager.createUser(
+                User.withDefaultPasswordEncoder()
+                        .username("my-junhyunny")
+                        .password("12345")
+                        .build()
+        );
+        return inMemoryUserDetailsManager;
+    }
+
+    @Bean
+    public OAuth2AuthorizedClientManager authorizedClientManager(
+            ClientRegistrationRepository clientRegistrationRepository,
+            OAuth2AuthorizedClientRepository authorizedClientRepository
+    ) {
+        var authorizedClientManager = new DefaultOAuth2AuthorizedClientManager(
+                clientRegistrationRepository,
+                authorizedClientRepository
+        );
+        var authorizedClientProvider =
+                OAuth2AuthorizedClientProviderBuilder.builder()
+                        .refreshToken(configurer -> configurer.clockSkew(Duration.ZERO)) // 1
+                        .password()
+                        .build();
+        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+        authorizedClientManager.setContextAttributesMapper(contextAttributesMapper());
+        return authorizedClientManager;
+    }
+
+    private Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper() {
+        return authorizeRequest -> {
+            Map<String, Object> contextAttributes = Collections.emptyMap();
+            HttpServletRequest servletRequest = authorizeRequest.getAttribute(HttpServletRequest.class.getName());
+            if (servletRequest == null) {
+                return contextAttributes;
+            }
+            String username = servletRequest.getParameter(OAuth2ParameterNames.USERNAME);
+            String password = servletRequest.getParameter(OAuth2ParameterNames.PASSWORD);
+            if (StringUtils.hasText(username) && StringUtils.hasText(password)) {
+                contextAttributes = new HashMap<>();
+                contextAttributes.put(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, username);
+                contextAttributes.put(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, password);
+            }
+            return contextAttributes;
+        };
+    }
+}

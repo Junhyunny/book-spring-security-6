@@ -1,0 +1,19 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          key-cloak:
+            authorization-grant-type: password
+            client-id: ${KEY_CLOAK_CLIENT_ID}
+            client-secret: ${KEY_CLOAK_CLIENT_SECRET}
+            scope:
+              - openid
+        provider:
+          key-cloak:
+            issuer-uri: "${KEY_CLOAK_HOST}/realms/spring-security-oauth2-example"
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+key-cloak:
+  host: ${KEY_CLOAK_HOST}

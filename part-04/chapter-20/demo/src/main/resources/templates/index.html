@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<header>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</header>
+<body>
+<div>
+    <div>
+        <p th:text="${username}"/> <!-- 1 -->
+        <p th:text="${role}"/> <!-- 2 -->
+    </div>
+    <div>
+        <form action="/users" method="post">
+            <label for="role">
+                역할
+                <select name="role" id="role"> <!-- 3 -->
+                    <option th:selected="${role} == 'ROLE_ADMIN'" value="ROLE_ADMIN">
+                        ADMIN
+                    </option>
+                    <option th:selected="${role} == 'ROLE_MANAGER'" value="ROLE_MANAGER">
+                        MANAGER
+                    </option>
+                    <option th:selected="${role} == 'ROLE_USER'" value="ROLE_USER">
+                        USER
+                    </option>
+                </select>
+            </label>
+            <button>변경</button> <!-- 4 -->
+        </form>
+    </div>
+</div>
+</body>
+</html>

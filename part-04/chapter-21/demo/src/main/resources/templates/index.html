@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<header>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .container > div {
+            width: 100%;
+        }
+
+        .container > div ul {
+            width: 100%;
+        }
+    </style>
+</header>
+<body>
+<div class="container">
+    <label for="todoInput">
+        TODO <input type="text" id="todoInput" name="todo"/>
+    </label>
+    <div id="todoList">
+        <ul th:each="todo : ${todos}">
+            <li th:text="${todo}"/>
+        </ul>
+    </div>
+</div>
+<script>
+    document.querySelector("#todoInput") // 1
+        .addEventListener('keydown', keyPress)
+
+    function keyPress(event) { // 2
+        const value = event.target.value
+        if (value && event.key === 'Enter') {
+            createTodo(value)
+                .then(fetchTodos)
+            event.target.value = ''
+        }
+    }
+
+    function createTodo(value) { // 3
+        return fetch(
+            'http://same-origin.com:8080/todos', {
+                method: 'post',
+                body: JSON.stringify({
+                    value
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+    }
+
+    function fetchTodos() { // 4
+        return fetch(
+            'http://same-origin.com:8080/todos', {
+                method: 'get'
+            })
+            .then(response => response.text())
+            .then(rerenderTodos)
+    }
+
+    function rerenderTodos(result) { // 5
+        document.querySelector('#todoList').outerHTML = result
+    }
+</script>
+</body>
+</html>

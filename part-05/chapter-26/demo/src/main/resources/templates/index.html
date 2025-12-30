@@ -1,0 +1,115 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,
+                  user-scalable=no,
+                  initial-scale=1.0,
+                  maximum-scale=1.0,
+                  minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        body, div {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            width: 150px;
+        }
+
+        #dialog {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+        }
+
+        #dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        #dialog form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        #dialog form div {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <script type="application/javascript">
+        function openDialog() {
+            const dialog = document.getElementById("dialog")
+            dialog.showModal()
+        }
+
+        function fetchUsers() {
+            return fetch(
+                '/users', {
+                    method: 'get'
+                })
+                .then(response => response.text())
+                .then(rerenderUsers)
+        }
+
+        function rerenderUsers(result) {
+            document.querySelector('#users').outerHTML = result
+        }
+    </script>
+</head>
+<body>
+<h2>Main Page</h2>
+<div th:text="'애플리케이션 사용자 ' + ${username} + ' 님'"></div>
+<div th:if="${keyCloakUser == null}">
+    <button onclick="openDialog()">
+        리소스 소유자 인증
+    </button>
+</div>
+<dialog id="dialog">
+    <form method="post" action="/authorization">
+        <div>
+            <label>
+                username
+                <input type="text" name="username">
+            </label>
+        </div>
+        <div>
+            <label>
+                password
+                <input type="password" name="password">
+            </label>
+        </div>
+        <div>
+            <button>submit</button>
+        </div>
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+    </form>
+</dialog>
+<div th:if="${keyCloakUser != null}">
+    <div>
+        KeyCloak 사용자 [[${keyCloakUser.preferredUsername}]] 님
+    </div>
+    <button onclick="fetchUsers()">사용자 조회</button>
+    <div id="users">
+        <ul th:each="user : ${users}">
+            <li>[[${user.username}]] ([[${user.firstName}]] [[${user.lastName}]], [[${user.email}]])</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
