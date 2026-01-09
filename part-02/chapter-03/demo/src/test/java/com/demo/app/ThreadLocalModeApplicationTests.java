@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class ThreadLocalModeApplicationTests {
 
     @Test
-    void security_security_from_other_thread_is_null() throws InterruptedException {
+    void security_context_from_other_thread_is_null() throws InterruptedException {
         // 1. 준비
         var testingToken = new TestingAuthenticationToken("Junhyunny", "12345", "ROLE_USER");
         var securityContext = SecurityContextHolder.createEmptyContext();
