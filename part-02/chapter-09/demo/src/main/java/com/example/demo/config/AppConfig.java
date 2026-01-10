@@ -24,12 +24,9 @@ public class AppConfig {
     public UserDetailsService inMemoryUserDetailsManager() {
         var inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
         inMemoryUserDetailsManager.createUser(
-                User.builder()
+                User.withDefaultPasswordEncoder()
                         .username("junhyunny")
-                        .password(
-                                passwordEncoder()
-                                        .encode("12345")
-                        )
+                        .password("12345")
                         .build()
         );
         return inMemoryUserDetailsManager;
@@ -38,8 +35,8 @@ public class AppConfig {
     @Bean
     public PersistentTokenRepository persistentTokenRepository(DataSource dataSource) {
         var jdbcTokenRepository = new JdbcTokenRepositoryImpl();
-        jdbcTokenRepository.setDataSource(dataSource);
-        jdbcTokenRepository.setCreateTableOnStartup(true);
+        jdbcTokenRepository.setDataSource(dataSource); // 1
+        jdbcTokenRepository.setCreateTableOnStartup(true); // 2
         return jdbcTokenRepository;
     }
 }
