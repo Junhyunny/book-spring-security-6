@@ -13,7 +13,7 @@ public class LoginFailureEventListener {
     private final static Logger logger = LoggerFactory.getLogger(LoginFailureEventListener.class);
 
     @EventListener
-    public void badCredentialListener(AuthenticationFailureBadCredentialsEvent event) { // 1
+    public void badCredentialListener(AuthenticationFailureBadCredentialsEvent event) {
         var authentication = event.getAuthentication();
         var exception = event.getException();
         logger.warn(
@@ -24,7 +24,7 @@ public class LoginFailureEventListener {
     }
 
     @EventListener
-    public void accessExpiredListener(AuthenticationFailureExpiredEvent event) { // 2
+    public void accessExpiredListener(AuthenticationFailureExpiredEvent event) {
         var authentication = event.getAuthentication();
         var exception = event.getException();
         logger.warn(

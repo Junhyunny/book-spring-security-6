@@ -12,7 +12,7 @@ public class AppConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         var userDetailsService = new InMemoryUserDetailsManager();
-        userDetailsService.createUser( // 1
+        userDetailsService.createUser(
                 User.withDefaultPasswordEncoder()
                         .username("junhyunny")
                         .password("12345")

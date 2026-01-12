@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
 
-    @Pointcut( // 1
-            "execution(* com.example.demo.service.OrderService.createOrder(..))"  // 2
+    @Pointcut(
+            "execution(* com.example.demo.service.OrderService.createOrder(..))"
     )
     private void executionCreateProduct() {
     }

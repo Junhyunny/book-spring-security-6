@@ -15,13 +15,11 @@ public class SignUpController {
         this.signupService = signupService;
     }
 
-    /* [1] 회원 가입 페이지를 반환 */
     @GetMapping("/signup")
     public String signup() {
         return "signup";
     }
 
-    /* [2] 회원 가입 요청 처리 */
     @PostMapping("/signup")
     public String signup(SignUp requestBody) {
         signupService.signup(requestBody);

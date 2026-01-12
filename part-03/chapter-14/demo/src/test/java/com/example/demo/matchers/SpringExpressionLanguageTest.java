@@ -14,38 +14,38 @@ public class SpringExpressionLanguageTest {
     @Test
     void simple_message() {
         ExpressionParser parser = new SpelExpressionParser();
-        Expression sut = parser.parseExpression("'Hello World'"); // 1
+        Expression sut = parser.parseExpression("'Hello World'");
 
 
-        String message = (String) sut.getValue(); // 2
+        String message = (String) sut.getValue();
 
 
-        assertEquals("Hello World", message); // 3
+        assertEquals("Hello World", message);
     }
 
 
     @Test
     void method_invoke() {
         ExpressionParser parser = new SpelExpressionParser();
-        Expression sut = parser.parseExpression("'Hello World'.concat('!')"); // 1
+        Expression sut = parser.parseExpression("'Hello World'.concat('!')");
 
 
-        String message = (String) sut.getValue(); // 2
+        String message = (String) sut.getValue();
 
 
-        assertEquals("Hello World!", message); // 3
+        assertEquals("Hello World!", message);
     }
 
     @Test
     void access_property() {
         ExpressionParser parser = new SpelExpressionParser();
-        Expression sut = parser.parseExpression("'Hello World'.bytes.length"); // 1
+        Expression sut = parser.parseExpression("'Hello World'.bytes.length");
 
 
-        var length = (Integer) sut.getValue(); // 2
+        var length = (Integer) sut.getValue();
 
 
-        assertEquals(11, length); // 3
+        assertEquals(11, length);
     }
 
     @Test
@@ -55,14 +55,14 @@ public class SpringExpressionLanguageTest {
                 return "Security World";
             }
         }
-        EvaluationContext context = new StandardEvaluationContext(new CustomRoot()); // 1
+        EvaluationContext context = new StandardEvaluationContext(new CustomRoot());
         ExpressionParser parser = new SpelExpressionParser();
-        Expression sut = parser.parseExpression("securityWorld()"); // 2
+        Expression sut = parser.parseExpression("securityWorld()");
 
 
-        String message = sut.getValue(context, String.class); // 3
+        String message = sut.getValue(context, String.class);
 
 
-        assertEquals("Security World", message); // 4
+        assertEquals("Security World", message);
     }
 }

@@ -48,7 +48,7 @@ public class AppConfig {
         );
         var authorizedClientProvider =
                 OAuth2AuthorizedClientProviderBuilder.builder()
-                        .refreshToken(configurer -> configurer.clockSkew(Duration.ZERO)) // 1
+                        .refreshToken(configurer -> configurer.clockSkew(Duration.ZERO))
                         .password()
                         .build();
         authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);

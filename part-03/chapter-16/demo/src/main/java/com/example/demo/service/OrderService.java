@@ -20,10 +20,9 @@ public class OrderService {
         System.out.println("create order for " + product);
     }
 
-    @PreAuthorize("isAuthenticated()") // 1
-    @PostAuthorize("returnObject.userId() == authentication.name") // 2
+    @PreAuthorize("isAuthenticated()")
+    @PostAuthorize("returnObject.userId() == authentication.name")
     public ProductOrder getOrder(long orderId) {
-        // ...
         return new ProductOrder(
                 orderId,
                 100,
@@ -32,11 +31,10 @@ public class OrderService {
         );
     }
 
-    @PreAuthorize("isAuthenticated()") // 1
-    @PostAuthorize("returnObject.userId() == authentication.name") // 2
-    @HandleAuthorizationDenied(handlerClass = NullMethodAuthorizationDeniedHandler.class) // 3
+    @PreAuthorize("isAuthenticated()")
+    @PostAuthorize("returnObject.userId() == authentication.name")
+    @HandleAuthorizationDenied(handlerClass = NullMethodAuthorizationDeniedHandler.class)
     public ProductOrder getLatestOrder(long orderId) {
-        // ...
         return new ProductOrder(
                 orderId,
                 100,
@@ -45,10 +43,9 @@ public class OrderService {
         );
     }
 
-    @PreFilter("#orderIdList.size() <= 5") // 1
-    @PostFilter("filterObject.delivered() == false") // 2
+    @PreFilter("#orderIdList.size() <= 5")
+    @PostFilter("filterObject.delivered() == false")
     public List<ProductOrder> getOrders(List<Long> orderIdList) {
-        // ...
         return new ArrayList<>(
                 orderIdList.stream()
                         .map(
@@ -63,9 +60,8 @@ public class OrderService {
         );
     }
 
-    @PreFilter("filterObject.userId == authentication.name") // 1
+    @PreFilter("filterObject.userId == authentication.name")
     public List<ProductOrder> updateOrders(List<ProductOrder> productOrders) {
-        // ...
         return new ArrayList<>(productOrders);
     }
 }

@@ -24,14 +24,14 @@ public class UserController {
             @AuthenticationPrincipal UserDetails principal,
             RoleCommand command
     ) {
-        var user = userManager.loadUserByUsername( // 1
+        var user = userManager.loadUserByUsername(
                 principal.getUsername()
         );
-        userManager.updateUser( // 2
+        userManager.updateUser(
                 User.withUserDetails(user)
                         .authorities(command.role())
                         .build()
         );
-        return "redirect:/"; // 3
+        return "redirect:/";
     }
 }

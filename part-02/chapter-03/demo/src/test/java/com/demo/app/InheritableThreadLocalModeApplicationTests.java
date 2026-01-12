@@ -14,7 +14,6 @@ public class InheritableThreadLocalModeApplicationTests {
 
     @Test
     void security_context_is_same_in_inheritable_thread_local_mode() throws InterruptedException {
-        // 1. 준비
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
         var testingToken = new TestingAuthenticationToken("Junhyunny", "12345", "ROLE_USER");
         var securityContext = SecurityContextHolder.createEmptyContext();
@@ -22,7 +21,6 @@ public class InheritableThreadLocalModeApplicationTests {
         SecurityContextHolder.setContext(securityContext);
 
 
-        // 2. 실행
         var contextArray = new SecurityContext[1];
         var thread = new Thread(() -> {
             var context = SecurityContextHolder.getContext();
@@ -32,7 +30,6 @@ public class InheritableThreadLocalModeApplicationTests {
         thread.join();
 
 
-        // 3. 검증
         var result = SecurityContextHolder.getContext();
         assertEquals(securityContext, result);
         assertEquals(testingToken, result.getAuthentication());
@@ -42,7 +39,6 @@ public class InheritableThreadLocalModeApplicationTests {
 
     @Test
     void security_context_is_null_when_completable_future_in_inheritable_thread_local_mode() {
-        // 1. 준비
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
         var testingToken = new TestingAuthenticationToken("Junhyunny", "12345", "ROLE_USER");
         var securityContext = SecurityContextHolder.createEmptyContext();
@@ -50,7 +46,6 @@ public class InheritableThreadLocalModeApplicationTests {
         SecurityContextHolder.setContext(securityContext);
 
 
-        // 2. 실행
         var contextArray = new SecurityContext[1];
         var completableFuture = CompletableFuture.runAsync(() -> {
             var context = SecurityContextHolder.getContext();
@@ -59,7 +54,6 @@ public class InheritableThreadLocalModeApplicationTests {
         completableFuture.join();
 
 
-        // 3. 검증
         var result = SecurityContextHolder.getContext();
         assertEquals(securityContext, result);
         assertEquals(testingToken, result.getAuthentication());

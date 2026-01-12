@@ -9,10 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
-    @GetMapping("/home") // 1
-    public ModelAndView home(@AuthenticationPrincipal User user) { // 2
-        var modelAndView = new ModelAndView("home"); // 3
-        modelAndView.addObject("username", user.getUsername()); // 4
+    @GetMapping("/home")
+    public ModelAndView home(@AuthenticationPrincipal User user) {
+        var modelAndView = new ModelAndView("home");
+        modelAndView.addObject("username", user.getUsername());
         return modelAndView;
     }
 }

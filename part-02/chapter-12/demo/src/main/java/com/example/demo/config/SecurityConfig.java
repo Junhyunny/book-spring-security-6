@@ -13,7 +13,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(  // 1
+        httpSecurity.authorizeHttpRequests(
                 registry -> registry.anyRequest().authenticated()
         );
         httpSecurity.formLogin(

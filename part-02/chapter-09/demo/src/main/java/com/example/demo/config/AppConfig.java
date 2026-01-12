@@ -35,8 +35,8 @@ public class AppConfig {
     @Bean
     public PersistentTokenRepository persistentTokenRepository(DataSource dataSource) {
         var jdbcTokenRepository = new JdbcTokenRepositoryImpl();
-        jdbcTokenRepository.setDataSource(dataSource); // 1
-        jdbcTokenRepository.setCreateTableOnStartup(true); // 2
+        jdbcTokenRepository.setDataSource(dataSource);
+        jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
 }

@@ -38,10 +38,10 @@ public class PreFilterTests extends TestUsersContext {
 
     @Test
     void superVisor_addEmployees_success() {
-        SecurityContextHolder.setContext(new SecurityContextImpl(supervisorAuthentication)); // 1
+        SecurityContextHolder.setContext(new SecurityContextImpl(supervisorAuthentication));
 
 
-        sut.addEmployees(  // 2
+        sut.addEmployees(
                 new ArrayList<>(
                         List.of(
                                 new Employee("M0003", "S0001", "david"),
@@ -51,7 +51,7 @@ public class PreFilterTests extends TestUsersContext {
         );
 
 
-        var result = repository.getAllEmployees(); // 3
+        var result = repository.getAllEmployees();
         assertTrue(result.containsValue(new Employee("M0003", "S0001", "david")));
         assertFalse(result.containsValue(new Employee("E0003", "M0001", "smith")));
         verify(repository, times(1)).addEmployees(eq(
@@ -63,10 +63,10 @@ public class PreFilterTests extends TestUsersContext {
 
     @Test
     void junhyunny_addEmployees_success() {
-        SecurityContextHolder.setContext(new SecurityContextImpl(junhyunnyAuthentication)); // 1
+        SecurityContextHolder.setContext(new SecurityContextImpl(junhyunnyAuthentication));
 
 
-        sut.addEmployees(  // 2
+        sut.addEmployees(
                 new ArrayList<>(
                         List.of(
                                 new Employee("M0003", "S0001", "david"),
@@ -76,7 +76,7 @@ public class PreFilterTests extends TestUsersContext {
         );
 
 
-        var result = repository.getAllEmployees(); // 3
+        var result = repository.getAllEmployees();
         assertTrue(result.containsValue(new Employee("E0003", "M0001", "smith")));
         assertFalse(result.containsValue(new Employee("M0003", "S0001", "david")));
         verify(repository, times(1)).addEmployees(eq(
@@ -88,10 +88,10 @@ public class PreFilterTests extends TestUsersContext {
 
     @Test
     void tangerine_addEmployees_success() {
-        SecurityContextHolder.setContext(new SecurityContextImpl(tangerineAuthentication)); // 1
+        SecurityContextHolder.setContext(new SecurityContextImpl(tangerineAuthentication));
 
 
-        sut.addEmployees(  // 2
+        sut.addEmployees(
                 new ArrayList<>(
                         List.of(
                                 new Employee("M0003", "S0001", "david"),
@@ -101,7 +101,7 @@ public class PreFilterTests extends TestUsersContext {
         );
 
 
-        var result = repository.getAllEmployees(); // 3
+        var result = repository.getAllEmployees();
         assertTrue(result.containsValue(new Employee("E0003", "M0002", "smith")));
         assertFalse(result.containsValue(new Employee("M0003", "S0001", "david")));
         verify(repository, times(1)).addEmployees(eq(
@@ -113,12 +113,12 @@ public class PreFilterTests extends TestUsersContext {
 
     @Test
     void jua_addEmployees_success() {
-        SecurityContextHolder.setContext(new SecurityContextImpl(juaAuthentication)); // 1
+        SecurityContextHolder.setContext(new SecurityContextImpl(juaAuthentication));
 
 
-        assertThrows( // 3
+        assertThrows(
                 AuthorizationDeniedException.class,
-                () -> sut.addEmployees(  // 2
+                () -> sut.addEmployees(
                         new ArrayList<>(
                                 List.of(
                                         new Employee("E0003", "E0001", "smith")
@@ -131,12 +131,12 @@ public class PreFilterTests extends TestUsersContext {
 
     @Test
     void tory_addEmployees_success() {
-        SecurityContextHolder.setContext(new SecurityContextImpl(toryAuthentication)); // 1
+        SecurityContextHolder.setContext(new SecurityContextImpl(toryAuthentication));
 
 
-        assertThrows( // 3
+        assertThrows(
                 AuthorizationDeniedException.class,
-                () -> sut.addEmployees(  // 2
+                () -> sut.addEmployees(
                         new ArrayList<>(
                                 List.of(
                                         new Employee("E0003", "E0002", "smith")

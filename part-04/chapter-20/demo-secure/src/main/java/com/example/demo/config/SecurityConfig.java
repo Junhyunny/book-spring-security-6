@@ -21,7 +21,7 @@ public class SecurityConfig {
         httpSecurity.formLogin(
                 Customizer.withDefaults()
         );
-        httpSecurity.csrf( // 1
+        httpSecurity.csrf(
                 Customizer.withDefaults()
         );
         return httpSecurity.build();

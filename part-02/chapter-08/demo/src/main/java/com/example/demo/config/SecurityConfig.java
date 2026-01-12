@@ -14,10 +14,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin(
-                Customizer.withDefaults() // 1
+                Customizer.withDefaults()
         );
         httpSecurity.rememberMe(
-                Customizer.withDefaults() // 2
+                Customizer.withDefaults()
         );
         return httpSecurity.build();
     }

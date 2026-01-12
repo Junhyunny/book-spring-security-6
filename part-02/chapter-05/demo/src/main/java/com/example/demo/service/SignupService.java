@@ -17,9 +17,7 @@ public class SignUpService {
     }
 
     public void signup(SignUp requestBody) {
-        /* [1] 사용자 엔티티 객체 생성 */
         var user = requestBody.toEntity(passwordEncoder::encode);
-        /* [2] 사용자 정보를 데이터베이스에 영속화 */
         userRepository.save(user);
     }
 }

@@ -21,7 +21,7 @@ public class SecurityConfig {
 //                        .authorities("ANONYMOUS_USER")
 //        );
         httpSecurity.anonymous(
-                AbstractHttpConfigurer::disable // 1
+                AbstractHttpConfigurer::disable
         );
         return httpSecurity.build();
     }

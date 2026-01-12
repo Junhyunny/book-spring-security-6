@@ -19,13 +19,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity httpSecurity,
-            PersistentTokenRepository tokenRepository // 1
+            PersistentTokenRepository tokenRepository
     ) throws Exception {
         httpSecurity.authorizeHttpRequests(
                 registry -> registry
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
-                        .requestMatchers(toH2Console()).permitAll() // 3
+                        .requestMatchers(toH2Console()).permitAll()
                         .anyRequest().authenticated()
         );
         httpSecurity.formLogin(
@@ -34,14 +34,14 @@ public class SecurityConfig {
                         .loginPage("/login")
         );
         httpSecurity.rememberMe(
-                configurer -> configurer.tokenRepository(tokenRepository) // 2
+                configurer -> configurer.tokenRepository(tokenRepository)
         );
         httpSecurity.csrf(
                 AbstractHttpConfigurer::disable
         );
         httpSecurity.headers(
                 configurer -> configurer.frameOptions(
-                        HeadersConfigurer.FrameOptionsConfig::disable // 4
+                        HeadersConfigurer.FrameOptionsConfig::disable
                 )
         );
         return httpSecurity.build();

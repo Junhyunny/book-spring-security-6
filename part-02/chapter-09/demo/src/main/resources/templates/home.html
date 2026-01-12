@@ -22,11 +22,11 @@
 <script>
     let sessionTime = 61
     const countdown = document.getElementById('countdown')
-    setInterval(function () { // 1
+    setInterval(function () {
         sessionTime--;
         countdown.innerHTML = sessionTime + '초 뒤에 로그아웃 됩니다.'
         if (sessionTime === 0) {
-            moveMainPage()  // 2
+            moveMainPage()
         }
     }, 1000)
 

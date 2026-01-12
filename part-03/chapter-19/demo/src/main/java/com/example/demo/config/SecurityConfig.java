@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // 1
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -25,12 +25,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(  // 2
+        httpSecurity.authorizeHttpRequests(
                 registry -> registry
                         .requestMatchers("/v1/users").denyAll()
                         .anyRequest().authenticated()
         );
-        httpSecurity.httpBasic( // 3
+        httpSecurity.httpBasic(
                 Customizer.withDefaults()
         );
         return httpSecurity.build();

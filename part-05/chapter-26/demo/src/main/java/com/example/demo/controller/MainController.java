@@ -92,11 +92,11 @@ public class MainController {
     ) {
         var mav = new ModelAndView("index::#users");
         try {
-            Thread.sleep(5500); // 1
+            Thread.sleep(5500);
             var users = getUsers(authorizedClient);
             mav.addObject("users", users);
         } catch (Exception e) {
-            System.out.printf("사용자 조회 시 에러 발생. 리프레시 토큰을 사용한 재인증(원인: %s)\n", e.getMessage()); // 2
+            System.out.printf("사용자 조회 시 에러 발생. 리프레시 토큰을 사용한 재인증(원인: %s)\n", e.getMessage());
             var reauthorizedClient = reauthorization(authorizedClient, authentication);
             if (reauthorizedClient == null) {
                 var user = (User) authentication.getPrincipal();

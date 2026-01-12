@@ -6,17 +6,17 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
-@Component // 1
+@Component
 public class LoginSuccessEventListener {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginSuccessEventListener.class);
 
-    @EventListener // 2
-    public void loginSuccessListener(AuthenticationSuccessEvent event) { // 3
+    @EventListener
+    public void loginSuccessListener(AuthenticationSuccessEvent event) {
         var authentication = event.getAuthentication();
         logger.info(
                 "send login success via email for {}",
                 authentication.getName()
-        ); // 4
+        );
     }
 }

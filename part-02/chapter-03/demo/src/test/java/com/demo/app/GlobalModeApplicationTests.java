@@ -13,7 +13,6 @@ class GlobalModeApplicationTests {
 
     @Test
     void security_context_is_same_from_global() throws InterruptedException {
-        // 1. 준비
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         var testingToken = new TestingAuthenticationToken("Junhyunny", "12345", "ROLE_USER");
         var securityContext = SecurityContextHolder.createEmptyContext();
@@ -21,7 +20,6 @@ class GlobalModeApplicationTests {
         SecurityContextHolder.setContext(securityContext);
 
 
-        // 2. 실행
         var contextArray = new SecurityContext[2];
         var thread = new Thread(() -> {
             var context = SecurityContextHolder.getContext();
@@ -37,7 +35,6 @@ class GlobalModeApplicationTests {
         future.join();
 
 
-        // 3. 검증
         var result = SecurityContextHolder.getContext();
         assertEquals(securityContext, result);
         assertEquals(testingToken, result.getAuthentication());

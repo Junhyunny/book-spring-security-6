@@ -7,14 +7,14 @@
 <body>
 <div>
     <div>
-        <p th:text="${username}"/> <!-- 1 -->
-        <p th:text="${role}"/> <!-- 2 -->
+        <p th:text="${username}" />
+        <p th:text="${role}" />
     </div>
     <div>
         <form action="/users" method="post">
             <label for="role">
                 역할
-                <select name="role" id="role"> <!-- 3 -->
+                <select name="role" id="role">
                     <option th:selected="${role} == 'ROLE_ADMIN'" value="ROLE_ADMIN">
                         ADMIN
                     </option>
@@ -26,7 +26,7 @@
                     </option>
                 </select>
             </label>
-            <button>변경</button> <!-- 4 -->
+            <button>변경</button>
         </form>
     </div>
 </div>
