@@ -1,77 +1,77 @@
-# Spring Security 6 예제 코드
+# 안쪽까지 들여다보는 스프링 시큐리티 예제 코드
 
-이 저장소는 Spring Security 6 책의 예제 코드를 포함하고 있습니다.
+이 저장소는 **「안쪽까지 들여다보는 스프링 시큐리티」** 책의 부/장 구성에 맞춘 예제 코드를 제공합니다.
 
-### Part 01 - 기초
+## 1부 스프링 시큐리티 소개
 
-- Chapter 02: Spring Security 기본 설정
+- 2장 Hello Spring Security
   - [demo](part-01/chapter-02/demo)
 
-### Part 02 - 인증(Authentication)
+## 2부 인증
 
-- Chapter 03: 인증 기초
+- 3장 스프링 시큐리티 인증 아키텍처
   - [demo](part-02/chapter-03/demo)
-- Chapter 04: 인증 아키텍처
+- 4장 폼 로그인 인증
   - [demo](part-02/chapter-04/demo)
-- Chapter 05: 사용자 관리
+- 5장 폼 로그인 인증 구현하기
   - [demo](part-02/chapter-05/demo)
-- Chapter 06: 패스워드 인코딩
+- 6장 HTTP 기본 인증
   - [demo](part-02/chapter-06/demo)
-- Chapter 07: 인증 프로바이더
+- 7장 HTTP 기본 인증 구현하기
   - [demo](part-02/chapter-07/demo)
-- Chapter 08: 필터 체인
+- 8장 리멤버-미 인증
   - [demo](part-02/chapter-08/demo)
-- Chapter 09: 세션 관리
+- 9장 리멤버-미 인증 구현하기
   - [demo](part-02/chapter-09/demo)
-- Chapter 10: Remember Me
+- 10장 익명 인증
   - [demo](part-02/chapter-10/demo)
-- Chapter 11: CORS 설정
+- 11장 인증 이벤트
   - [demo](part-02/chapter-11/demo)
-- Chapter 12: CSRF 보호
+- 12장 인증 이벤트 구현하기
   - [demo](part-02/chapter-12/demo)
 
-### Part 03 - 인가(Authorization)
+## 3부 인가
 
-- Chapter 13: 인가 기초
+- 13장 스프링 시큐리티 인가 아키텍처
   - [demo](part-03/chapter-13/demo)
   - [legacy demo](part-03/chapter-13-legacy/demo)
-- Chapter 14: 인가 관리자
+- 14장 HTTP 요청 기반 인가
   - [demo](part-03/chapter-14/demo)
   - [authorization-manager demo](part-03/chapter-14-authorization-manager/demo)
-- Chapter 15: 메서드 시큐리티
+- 15장 HTTP 요청 기반 인가 구현하기
   - [demo](part-03/chapter-15/demo)
-- Chapter 16: 표현식 기반 접근 제어
+- 16장 메서드 기반 인가
   - [demo](part-03/chapter-16/demo)
-- Chapter 17: 계층적 역할
+- 17장 메서드 기반 인가 구현하기
   - [demo](part-03/chapter-17/demo)
-- Chapter 18: 커스텀 인가
+- 18장 인가 이벤트
   - [demo](part-03/chapter-18/demo)
-- Chapter 19: 인가 이벤트
+- 19장 인가 이벤트 구현하기
   - [demo](part-03/chapter-19/demo)
 
-### Part 04 - 웹 보안
+## 4부 애플리케이션 보호
 
-- Chapter 20: CSRF 고급
+- 20장 사이트 간 요청 위조
   - [demo](part-04/chapter-20/demo)
   - [attacker demo](part-04/chapter-20/demo-attacker)
   - [secure demo](part-04/chapter-20/demo-secure)
-- Chapter 21: 웹 보안 고급
+- 21장 교차 출처 리소스 공유(CORS)
   - [demo](part-04/chapter-21/demo)
 
-### Part 05 - OAuth 2.0 & OpenID Connect
+## 5부 Spring Security OAuth 2.0
 
-- Chapter 23: OAuth 2.0 기초
+- 23장 스프링 시큐리티 OAuth2 로그인
   - [demo](part-05/chapter-23/demo)
-- Chapter 24: OAuth 2.0 클라이언트
+- 24장 SNS 로그인 구현하기
   - [demo](part-05/chapter-24/demo)
-- Chapter 25: OAuth 2.0 리소스 서버
+- 25장 스프링 시큐리티 OAuth2 클라이언트
   - [demo](part-05/chapter-25/demo)
-- Chapter 26: OAuth 2.0 인가 서버
+- 26장 OAuth2 클라이언트 구현하기
   - [demo](part-05/chapter-26/demo)
 
-### Part 06 - 테스트
+## 6부 스프링 시큐리티 테스트
 
-- Chapter 27: Spring Security 테스트
+- 27장 스프링 시큐리티 테스트 지원
   - [demo](part-06/chapter-27/demo)
   - [mvc-demo](part-06/chapter-27/mvc-demo)
   - [oauth2-demo](part-06/chapter-27/oauth2-demo)
@@ -83,7 +83,14 @@
 - Spring Boot 3.3.5
 - Spring Security 6.3.4
 
-## 참고사항
+## 인텔리제이 IDE 프로젝트 import 방법
 
-- 각 챕터의 예제는 해당 챕터에서 다루는 내용을 실습할 수 있도록 구성되어 있습니다.
-- 일부 챕터는 여러 개의 데모 프로젝트를 포함하고 있어 다양한 구현 방식을 비교할 수 있습니다.
+이 저장소는 챕터별로 **독립적인 Gradle 프로젝트**(settings.gradle 포함)로 구성되어 있습니다. 따라서 저장소 루트가 아니라, 실행하려는 챕터의 demo(또는 mvc-demo, oauth2-demo 등) 폴더를 프로젝트로 여는 것을 권장합니다.
+
+1. IntelliJ IDEA 실행
+2. File > Open... 선택
+3. **챕터 프로젝트 폴더** 선택 (예: part-02/chapter-05/demo)
+4. Open as Project 선택
+5. Gradle import 팝업 창에서 **Use Gradle Wrapper**로 import 진행
+6. JDK는 **Java 17**로 설정 (File > Project Structure > Project)
+7. 우측 Gradle 탭에서 Tasks > application > bootRun 또는 Tasks > verification > test 실행
